@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/bohr-cloud/app-template#readme",
   "dependencies": {
-    "bohr": "^1.0.50"
+    "bohr": "^1.0.51"
   }
 }
