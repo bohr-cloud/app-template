@@ -1,0 +1,56 @@
+name: Bohr
+
+on: push
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Action 🛎
+        uses: actions/checkout@v2
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: |
+            ~/.npm
+            /home/runner/.cache
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      
+      - name: Install dependencies 👨🏻‍💻
+        run: npm install
+
+      - name: Update Bohr
+        run: npm update bohr
+
+      - name: Deploy
+        run: |
+          npx bohr deploy
+          cd node_modules/bohr/.bohr/worker
+          chmod +x wrangler
+          ./wrangler publish
+        env:
+          APP_PATH: './public'
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
