@@ -1,1 +1,3 @@
-# app-template
+## How to use it?
+
+![](readme.gif)
