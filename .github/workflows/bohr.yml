@@ -36,17 +36,11 @@ jobs:
       - name: Install dependencies 👨🏻‍💻
         run: npm install
 
-      - name: Update Bohr
-        run: npm update bohr
-
       - name: Deploy
-        run: |
-          npx bohr deploy
-          cd node_modules/bohr/.bohr/worker
-          chmod +x wrangler
-          ./wrangler publish
+        run: npx bohr deploy
         env:
-          APP_PATH: './public'
+          DEPLOY_PATH: './dist'
+          SITE_NAME: 'app.bohr.io'
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
@@ -54,3 +48,8 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
+          KV_SITES_ID: ${{ secrets.KV_SITES_ID }}
+          KV_ASSETS_ID: ${{ secrets.KV_ASSETS_ID }}
+          BRANCH: 'main'
+          OWNER: 'bohr-io'
+          REPOSITORY: 'app-template'
