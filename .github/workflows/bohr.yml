@@ -39,7 +39,7 @@ jobs:
       - name: Deploy
         run: npx bohr deploy
         env:
-          DEPLOY_PATH: './'
+          DEPLOY_PATH: './public'
           SITE_NAME: 'app-template.bohr.io'
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
