@@ -41,15 +41,7 @@ jobs:
         env:
           DEPLOY_PATH: './public'
           SITE_NAME: 'app-template.bohr.io'
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          KV_SITES_ID: ${{ secrets.KV_SITES_ID }}
-          KV_ASSETS_ID: ${{ secrets.KV_ASSETS_ID }}
           BRANCH: 'main'
           OWNER: 'bohr-io'
           REPOSITORY: 'app-template'
+          BOHR_TOKEN: ${{ secrets.BOHR_TOKEN }}
