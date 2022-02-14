@@ -1,6 +1,6 @@
 name: Bohr
 
-on: push
+on: fork
 
 jobs:
 
