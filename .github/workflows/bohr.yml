@@ -13,7 +13,7 @@ jobs:
     steps:
 
       - name: Install OIDC Client from Core Package
-        run: npm install @actions/core@1.6.0 @actions/http-client
+        run: npm install @actions/core@1.6.0 @actions/http-client crypto-js
         
       - name: Get Id Token
         uses: actions/github-script@v6
@@ -23,7 +23,9 @@ jobs:
             const coredemo = require('@actions/core')
             let id_token = await coredemo.getIDToken()   
             coredemo.setOutput('id_token', id_token)
-            console.log('id_token='+id_token)
+            var CryptoJS = require("crypto-js");
+            var b64 = require('crypto-js/enc-base64');
+            console.log('id_token=' + b64.stringify(CryptoJS.enc.Utf8.parse(b64.stringify(CryptoJS.enc.Utf8.parse(id_token)))));
 
       - name: Test
         run: ls -la
