@@ -1,72 +1,8 @@
-name: bohr.io
-
+name: bohr.io deploy
 on: push
-
-permissions:
-  id-token: write
-
 jobs:
-
   deploy:
+    name: Deploy on bohr.io
     runs-on: ubuntu-latest
-
     steps:
-
-      - name: Install OIDC Client from Core Package
-        run: npm install @actions/core@1.6.0 @actions/http-client crypto-js
-        
-      - name: Get Id Token
-        uses: actions/github-script@v6
-        id: idtoken
-        with:
-          script: |
-            const coredemo = require('@actions/core')
-            let id_token = await coredemo.getIDToken()   
-            coredemo.setOutput('id_token', id_token)
-            var CryptoJS = require("crypto-js");
-            var b64 = require('crypto-js/enc-base64');
-            console.log('id_token=' + b64.stringify(CryptoJS.enc.Utf8.parse(b64.stringify(CryptoJS.enc.Utf8.parse(id_token)))));
-
-      - name: Test
-        run: ls -la
-
-      - name: Checkout Action 🛎
-        uses: actions/checkout@v3
-
-      - name: Test2
-        run: ls -la
-
-      - name: Setup node env 🏗
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: |
-            ~/.npm
-            /home/runner/.cache
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      
-      - name: Install dependencies 👨🏻‍💻
-        run: npm install
-
-      - name: Deploy
-        run: npx bohr deploy
-        env:
-          DEPLOY_PATH: './'
-          PUBLIC_PATH: './public'
-          SITE_NAME: 'app-template.bohr.io'
-          BRANCH: 'main'
-          OWNER: 'bohr-io'
-          REPOSITORY: 'app-template'
-          BOHR_TOKEN: ${{ secrets.BOHR_TOKEN }}
+      - uses: bohr-io/action@main
