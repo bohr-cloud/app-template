@@ -1,7 +1,6 @@
 name: bohr.io deploy
 on: push
-permissions:
-  id-token: write
+permissions: write-all
 jobs:
   deploy:
     name: Deploy on bohr.io
