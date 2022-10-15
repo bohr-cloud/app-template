@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bohr-cloud/app-template.git"
+    "url": "git+https://github.com/bohr-io/app-template.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bohr-cloud/app-template/issues"
+    "url": "https://github.com/bohr-io/app-template/issues"
   },
-  "homepage": "https://github.com/bohr-cloud/app-template#readme"
+  "homepage": "https://github.com/bohr-io/app-template#readme"
 }
